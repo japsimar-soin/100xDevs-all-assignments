@@ -39,11 +39,80 @@
 
   Testing the server - run `npm run test-todoServer` command in terminal
  */
-const express = require('express');
-const bodyParser = require('body-parser');
+const express = require("express");
+const bodyParser = require("body-parser");
 
 const app = express();
 
 app.use(bodyParser.json());
+
+let todos = [];
+
+app.get("/todos", (req, res) => {
+	res.status(200).json(todos);
+});
+
+function getIdx(arr, id) {
+	for (let i = 0; i < arr.length; i++) {
+		if (todos[i].id === id) {
+			return i;
+		}
+	}
+	return -1;
+}
+
+app.get("/todos/:id", (req, res) => {
+	let idx = getIdx(todos, parseInt(req.params.id));
+	if (idx === -1) {
+    res.status(404).send();
+	} else {
+    res.status(200).json(todos[idx]);
+	}
+});
+
+app.post("/todos", (req, res) => {
+	const todo = {
+		id: Math.floor(1000000 * Math.random()),
+		title: req.body.title,
+		description: req.body.description,
+	};
+	todos.push(todo);
+	res.status(201).json(todo);
+});
+
+app.put("/todos/:id", (req, res) => {
+	let idx = getIdx(todos, parseInt(req.params.id));
+	if (idx === -1) {
+    res.status(404).send();
+	} else {
+    todos[idx].title = req.body.title;
+		todos[idx].description = req.body.description;
+		res.status(200).json(todos[idx]);
+	}
+});
+
+function deleteTodo(arr, id) {
+	let updatedTodos = [];
+	for (let i = 0; i < arr.length; i++) {
+		if (i !== id) {
+			updatedTodos.push(arr[i]);
+		}
+	}
+	return updatedTodos;
+}
+
+app.delete("/todos/:id", (req, res) => {
+	let idx = getIdx(todos, parseInt(req.params.id));
+	if (idx === -1) {
+    res.status(404).send();
+	} else {
+    todos = deleteTodo(todos, idx);
+		res.status(200).send();
+	}
+});
+
+app.use((req, res) => {
+	res.status(404).send();
+});
 
 module.exports = app;
