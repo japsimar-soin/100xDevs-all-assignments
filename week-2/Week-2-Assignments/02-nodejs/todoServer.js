@@ -49,7 +49,7 @@ app.use(bodyParser.json());
 let todos = [];
 
 app.get("/todos", (req, res) => {
-	res.status(200).json(todos);
+	res.json(todos);
 });
 
 function getIdx(arr, id) {
@@ -87,7 +87,7 @@ app.put("/todos/:id", (req, res) => {
 	} else {
     todos[idx].title = req.body.title;
 		todos[idx].description = req.body.description;
-		res.status(200).json(todos[idx]);
+		res.json(todos[idx]);
 	}
 });
 
@@ -115,4 +115,5 @@ app.use((req, res) => {
 	res.status(404).send();
 });
 
-module.exports = app;
+app.listen(3000);
+// module.exports = app;
