@@ -104,7 +104,7 @@ app.post('/users/courses/:courseId', userAuthentication, (req, res) => {
   }
 });
 
-app.get('/users/purchasedCourses', userAuthentication, (req, res) => {
+app.get('/users/', userAuthentication, (req, res) => {
   // const purchasedCourses = COURSES.filter(c => req.user.purchasedCourses.includes(c.id));
   // We need to extract the complete course object from COURSES
   // which have ids which are present in req.user.purchasedCourses

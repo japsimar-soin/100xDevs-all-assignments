@@ -1,3 +1,18 @@
+// const express = require('express');
+// const bodyParser = require('body-parser');
+
+// const app = express();
+
+// const port = process.env.PORT || 3000;
+
+// app.use(express.json());
+
+// app.post("/admin/signup");
+
+// app.listen(port, () => {
+// 	console.log(`Server is listening on port ${port}`);
+// });
+
 const express = require("express");
 const bodyParser = require("body-parser");
 
