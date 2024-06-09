@@ -103,8 +103,8 @@ app.get('/admin/courses', authenticateJwt, async (req, res) => {
 // User routes
 app.post('/users/signup', async (req, res) => {
   const { username, password } = req.body;
-  const user = await User.findOne({ username });
-  if (user) {
+  const userExists = await User.findOne({ username });
+  if (userExists) {
     res.status(403).json({ message: 'User already exists' });
   } else {
     const newUser = new User({ username, password });

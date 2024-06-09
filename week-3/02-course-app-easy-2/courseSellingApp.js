@@ -158,3 +158,7 @@ app.get("/users/purchasedCourses", authenticateUser, (req, res) => {
 app.listen(port, () => {
 	console.log(`Server is listening at port ${port}`);
 });
+
+
+
+//mongodb+srv://japsimarsoin2003:zV9bbnpRPGomDrFc@cluster0.lmwntbi.mongodb.net/
